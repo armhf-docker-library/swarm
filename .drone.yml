@@ -24,7 +24,9 @@ publish:
     password: $$DOCKER_PASSWORD
     email: $$DOCKER_EMAIL
     repo: armhfbuild/swarm
-    tag: latest
+    tag:
+      - latest
+      - "1.1.0"
     when:
       matrix:
         VERSION: "1.1.0"
