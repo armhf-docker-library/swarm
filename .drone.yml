@@ -3,17 +3,10 @@ matrix:
     - "1.1.0"
 
 build:
-  image: armhfbuild/docker:1.10-dind
-  privileged: true
+  image: armhfbuild/swarm-dev:$$VERSION
   commands:
-    # FIXME Replace this mess with a better docker-dind based build plugin
-    - docker daemon -s aufs -g /drone/docker &
-    - sleep 2
-    - docker daemon -s overlay -g /drone/docker &
-    - apk add --update git
     - git clone --single-branch https://github.com/docker/swarm-library-image upstream
-    - docker run --rm --entrypoint /bin/cat armhfbuild/swarm-dev:$$VERSION /go/bin/swarm >upstream/swarm
-    - chmod u+x upstream/swarm
+    - cp /go/bin/swarm upstream/swarm
 
 publish:
   docker:
